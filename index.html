@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Huruf Abjad Bahasa Melayu — Dengar & Kenal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#FFF9EE;
+    --ink:#3A3352;
+    --coral:#FF6F61;
+    --coral-dark:#C8422F;
+    --teal:#1FA7A0;
+    --teal-dark:#0D6E68;
+    --purple:#8E7CEE;
+    --purple-dark:#5A47C4;
+    --yellow:#FFC94A;
+    --yellow-dark:#B5790A;
+    --green:#4FBE7A;
+    --green-dark:#1F7A48;
+    --pink:#FF8FB1;
+    --pink-dark:#C4406B;
+    --card-radius:22px;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family:'Nunito',sans-serif;
+    background:
+      radial-gradient(circle at 8% 12%, #FFEFD6 0%, transparent 45%),
+      radial-gradient(circle at 92% 88%, #E4F6F2 0%, transparent 45%),
+      var(--cream);
+    color:var(--ink);
+    padding:20px 16px 60px;
+  }
+  .wrap{max-width:1180px;margin:0 auto;}
+  .hero{
+    background:linear-gradient(180deg,#FFFFFF 0%, #FFF3DC 100%);
+    border:3px solid #FFE1A8;
+    border-radius:28px;
+    padding:26px 28px;
+    text-align:center;
+    margin-bottom:24px;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before, .hero::after{
+    content:"";
+    position:absolute;
+    width:120px;height:120px;
+    border-radius:50%;
+    opacity:.35;
+  }
+  .hero::before{background:var(--yellow);top:-50px;left:-40px;}
+  .hero::after{background:var(--teal);bottom:-60px;right:-40px;}
+  .hero h1{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:clamp(26px,4vw,40px);
+    margin:0 0 6px;
+    color:var(--coral-dark);
+    position:relative;
+  }
+  .hero p{
+    margin:0;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+    position:relative;
+  }
+  .hero .sub{font-weight:600;color:#6b6280;font-size:14.5px;margin-top:6px;}
+  .voice-picker{
+    margin-top:14px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    flex-wrap:wrap;
+    position:relative;
+  }
+  .voice-picker label{font-weight:700;font-size:14px;color:var(--purple-dark);}
+  .voice-picker select{
+    font-family:'Nunito',sans-serif;
+    font-weight:700;
+    font-size:14px;
+    padding:6px 12px;
+    border-radius:12px;
+    border:2px solid #E7E1FF;
+    background:#fff;
+    color:var(--ink);
+    max-width:260px;
+  }
+
+  .tabs{
+    display:flex;
+    justify-content:center;
+    gap:10px;
+    margin:0 0 22px;
+    flex-wrap:wrap;
+  }
+  .tab-btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    padding:12px 24px;
+    border-radius:999px;
+    border:3px solid transparent;
+    cursor:pointer;
+    background:#fff;
+    color:#7a7290;
+    box-shadow:0 3px 0 #e7e2d6;
+    transition:transform .12s ease;
+  }
+  .tab-btn:hover{transform:translateY(-2px);}
+  .tab-btn.active{
+    background:var(--coral);
+    color:#fff;
+    box-shadow:0 4px 0 var(--coral-dark);
+  }
+  .tab-btn:focus-visible{outline:3px solid var(--purple);outline-offset:2px;}
+
+  .panel{display:none;}
+  .panel.active{display:block;}
+
+  .legend{
+    display:flex;
+    justify-content:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:22px;
+  }
+  .legend span{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    padding:8px 18px;
+    border-radius:14px;
+  }
+  .legend .besar{background:#FFE3DC;color:var(--coral-dark);}
+  .legend .kecil{background:#E1F3EF;color:var(--teal-dark);}
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(150px,1fr));
+    gap:14px;
+  }
+  .card{
+    border-radius:var(--card-radius);
+    padding:14px 12px 12px;
+    text-align:center;
+    border:3px solid rgba(0,0,0,0.06);
+    position:relative;
+  }
+  .card .letters{
+    display:flex;
+    justify-content:center;
+    align-items:baseline;
+    gap:6px;
+    margin-bottom:2px;
+  }
+  .letter-btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    border:none;
+    background:transparent;
+    cursor:pointer;
+    line-height:1;
+    padding:4px 6px;
+    border-radius:12px;
+    transition:transform .1s ease, background .15s ease;
+  }
+  .letter-btn.upper{font-size:44px;}
+  .letter-btn.lower{font-size:34px;opacity:.85;}
+  .letter-btn:hover{transform:scale(1.12);background:rgba(255,255,255,.6);}
+  .letter-btn:active{transform:scale(0.95);}
+  .letter-btn:focus-visible{outline:3px solid var(--purple);outline-offset:1px;}
+  .pron{
+    font-size:12.5px;
+    font-weight:700;
+    color:#8b8298;
+    margin:0 0 8px;
+  }
+  .deco-emoji{
+    font-size:30px;
+    margin-top:4px;
+    opacity:.9;
+  }
+
+  .card.c0{background:#FFE3DC;}
+  .card.c1{background:#DDF1FA;}
+  .card.c2{background:#FFF1C7;}
+  .card.c3{background:#E7E1FF;}
+  .card.c4{background:#DBF3E6;}
+  .card.c5{background:#FFE1EE;}
+
+  .card.c0 .letter-btn{color:var(--coral-dark);}
+  .card.c1 .letter-btn{color:#1E6FA8;}
+  .card.c2 .letter-btn{color:var(--yellow-dark);}
+  .card.c3 .letter-btn{color:var(--purple-dark);}
+  .card.c4 .letter-btn{color:var(--green-dark);}
+  .card.c5 .letter-btn{color:var(--pink-dark);}
+
+  .quiz-box{
+    max-width:560px;
+    margin:0 auto;
+    background:#fff;
+    border-radius:28px;
+    border:3px solid #FFE1A8;
+    padding:30px 24px 26px;
+    text-align:center;
+  }
+  .quiz-score{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    color:var(--purple-dark);
+    margin-bottom:8px;
+    font-size:15px;
+  }
+  .quiz-prompt-btn{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:20px;
+    color:#fff;
+    background:var(--purple);
+    border:none;
+    border-radius:20px;
+    padding:18px 26px;
+    box-shadow:0 5px 0 var(--purple-dark);
+    cursor:pointer;
+    margin-bottom:26px;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+  }
+  .quiz-prompt-btn:active{transform:translateY(3px);box-shadow:0 2px 0 var(--purple-dark);}
+  .quiz-prompt-btn:focus-visible{outline:3px solid var(--teal);outline-offset:3px;}
+  .quiz-instr{font-size:14.5px;font-weight:600;color:#7a7290;margin-bottom:18px;}
+
+  .quiz-options{
+    display:flex;
+    justify-content:center;
+    gap:20px;
+    flex-wrap:wrap;
+  }
+  .opt-card{
+    width:130px;
+    height:130px;
+    border-radius:24px;
+    border:4px solid #ECE7F7;
+    background:#FBFAFF;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:56px;
+    color:var(--ink);
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:transform .1s ease, border-color .15s ease;
+  }
+  .opt-card:hover{transform:translateY(-3px);}
+  .opt-card:focus-visible{outline:3px solid var(--teal);outline-offset:2px;}
+  .opt-card.correct{background:#DBF3E6;border-color:var(--green);color:var(--green-dark);}
+  .opt-card.wrong{background:#FFE1DC;border-color:var(--coral);color:var(--coral-dark);}
+
+  .feedback{
+    min-height:30px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:18px;
+    margin-top:18px;
+  }
+  .feedback.good{color:var(--green-dark);}
+  .feedback.bad{color:var(--coral-dark);}
+
+  .next-btn{
+    margin-top:16px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    padding:10px 22px;
+    border-radius:999px;
+    border:none;
+    background:var(--teal);
+    color:#fff;
+    box-shadow:0 4px 0 var(--teal-dark);
+    cursor:pointer;
+    display:none;
+  }
+  .next-btn:focus-visible{outline:3px solid var(--purple);outline-offset:2px;}
+
+  .done-box{display:none;}
+  .done-box h2{font-family:'Baloo 2',sans-serif;color:var(--coral-dark);margin-bottom:6px;}
+
+  .replay-btn{
+    background:none;border:none;cursor:pointer;
+    font-size:20px;color:var(--purple-dark);
+    vertical-align:-3px;
+  }
+  .note{
+    text-align:center;
+    font-size:13px;
+    color:#9a92a8;
+    margin-top:26px;
+    font-weight:600;
+  }
+  @media (max-width:480px){
+    .letter-btn.upper{font-size:36px;}
+    .letter-btn.lower{font-size:28px;}
+    .opt-card{width:100px;height:100px;font-size:42px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="hero">
+    <h1>Dengar &amp; Kenal Huruf Abjad</h1>
+    <p>Huruf Besar dan Huruf Kecil — A hingga Z</p>
+    <div class="sub">Tekan huruf besar atau huruf kecil untuk dengar sebutan dan bezanya!</div>
+    <div class="voice-picker">
+      <label for="voiceSelect">🔊 Pilih suara:</label>
+      <select id="voiceSelect"><option value="">Suara automatik terbaik</option></select>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" data-tab="lembaran">📋 Lembaran Kerja</button>
+    <button class="tab-btn" data-tab="kuis">🎧 Kuis Dengar</button>
+  </div>
+
+  <div class="panel active" id="panel-lembaran">
+    <div class="legend">
+      <span class="besar">Huruf Besar → tekan huruf yang BESAR</span>
+      <span class="kecil">Huruf Kecil → tekan huruf yang KECIL</span>
+    </div>
+    <div class="grid" id="grid"></div>
+  </div>
+
+  <div class="panel" id="panel-kuis">
+    <div class="quiz-box">
+      <div class="quiz-score" id="score">Skor: 0 / 0</div>
+      <div class="quiz-instr">Dengar arahan, lalu tekan huruf yang betul.</div>
+      <button class="quiz-prompt-btn" id="promptBtn">🔊 Dengar Semula</button>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="feedback" id="feedback"></div>
+      <button class="next-btn" id="nextBtn">Soalan Seterusnya →</button>
+
+      <div class="done-box" id="doneBox">
+        <h2>Hebat! Kuis Selesai 🎉</h2>
+        <p id="finalScore" style="font-weight:700;"></p>
+        <button class="next-btn" style="display:inline-block;margin-top:10px;" id="restartBtn">Main Lagi</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">Bunyi dihasilkan oleh suara komputer anda — kelantangan mungkin berbeza mengikut pelayar.</div>
+</div>
+
+<script>
+const DATA = [
+  {u:'A',l:'a',p:'a',w:'Apel',e:'🍎'},
+  {u:'B',l:'b',p:'be',w:'Bola',e:'⚽'},
+  {u:'C',l:'c',p:'ce',w:'Kucing',e:'🐱'},
+  {u:'D',l:'d',p:'de',w:'Anjing',e:'🐶'},
+  {u:'E',l:'e',p:'e',w:'Gajah',e:'🐘'},
+  {u:'F',l:'f',p:'ef',w:'Ikan',e:'🐟'},
+  {u:'G',l:'g',p:'ge',w:'Zirafah',e:'🦒'},
+  {u:'H',l:'h',p:'ha',w:'Topi',e:'👒'},
+  {u:'I',l:'i',p:'i',w:'Aiskrim',e:'🍦'},
+  {u:'J',l:'j',p:'je',w:'Jus',e:'🧃'},
+  {u:'K',l:'k',p:'ka',w:'Layangan',e:'🪁'},
+  {u:'L',l:'l',p:'el',w:'Singa',e:'🦁'},
+  {u:'M',l:'m',p:'em',w:'Monyet',e:'🐒'},
+  {u:'N',l:'n',p:'en',w:'Hidung',e:'👃'},
+  {u:'O',l:'o',p:'o',w:'Oren',e:'🍊'},
+  {u:'P',l:'p',p:'pe',w:'Pensel',e:'✏️'},
+  {u:'Q',l:'q',p:'ku',w:'Ratu',e:'👑'},
+  {u:'R',l:'r',p:'er',w:'Arnab',e:'🐰'},
+  {u:'S',l:'s',p:'es',w:'Matahari',e:'☀️'},
+  {u:'T',l:'t',p:'te',w:'Harimau',e:'🐯'},
+  {u:'U',l:'u',p:'u',w:'Payung',e:'☂️'},
+  {u:'V',l:'v',p:'ve',w:'Van',e:'🚐'},
+  {u:'W',l:'w',p:'dabel u',w:'Tembikai',e:'🍉'},
+  {u:'X',l:'x',p:'eks',w:'Sinar-X',e:'🩻'},
+  {u:'Y',l:'y',p:'way',w:'Yo-yo',e:'🪀'},
+  {u:'Z',l:'z',p:'zet',w:'Zebra',e:'🦓'}
+];
+
+let chosenVoiceURI = '';
+const voiceSelect = document.getElementById('voiceSelect');
+
+function scoreVoice(v){
+  let s = 0;
+  const name = v.name.toLowerCase();
+  const lang = (v.lang || '').toLowerCase();
+  if(lang.startsWith('ms')) s += 100;
+  if(lang.startsWith('id')) s += 60;
+  if(/female|wanita|siti|amira|nur|farah|zira|samantha|susan|karen|moira|tessa|serena|joana|kids|child|junior/.test(name)) s += 40;
+  if(lang.startsWith('en')) s += 5;
+  return s;
+}
+
+function populateVoices(){
+  const voices = window.speechSynthesis.getVoices();
+  if(!voices.length) return;
+  const sorted = [...voices].sort((a,b)=> scoreVoice(b)-scoreVoice(a));
+  voiceSelect.innerHTML = '<option value="">Suara automatik terbaik</option>';
+  sorted.slice(0,12).forEach(v=>{
+    const opt = document.createElement('option');
+    opt.value = v.voiceURI;
+    opt.textContent = `${v.name} (${v.lang})`;
+    voiceSelect.appendChild(opt);
+  });
+}
+if('speechSynthesis' in window){
+  populateVoices();
+  window.speechSynthesis.onvoiceschanged = populateVoices;
+}
+voiceSelect.addEventListener('change', ()=>{
+  chosenVoiceURI = voiceSelect.value;
+  const voices = window.speechSynthesis.getVoices();
+  const v = voices.find(v=>v.voiceURI === chosenVoiceURI);
+  speak(v ? 'Ini suara saya' : 'a, huruf besar');
+});
+
+function pickVoice(voices){
+  if(chosenVoiceURI){
+    const v = voices.find(v=>v.voiceURI === chosenVoiceURI);
+    if(v) return v;
+  }
+  const sorted = [...voices].sort((a,b)=> scoreVoice(b)-scoreVoice(a));
+  return sorted[0];
+}
+
+function speakOne(text, pitch, rate){
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ms-MY';
+  u.rate = rate;
+  u.pitch = pitch;
+  const voices = window.speechSynthesis.getVoices();
+  const v = pickVoice(voices);
+  if(v) u.voice = v;
+  window.speechSynthesis.speak(u);
+}
+
+function speak(text){
+  if(!('speechSynthesis' in window)) return;
+  window.speechSynthesis.cancel();
+  const parts = text.split(',').map(p=>p.trim()).filter(Boolean);
+  if(parts.length === 2){
+    speakOne(parts[0], 1.55, 0.82);
+    const u2 = new SpeechSynthesisUtterance(parts[1]);
+    u2.lang = 'ms-MY';
+    u2.rate = 0.88;
+    u2.pitch = 1.35;
+    const voices = window.speechSynthesis.getVoices();
+    const v = pickVoice(voices);
+    if(v) u2.voice = v;
+    u2.onstart = null;
+    setTimeout(()=> window.speechSynthesis.speak(u2), 260);
+  } else {
+    speakOne(text, 1.5, 0.85);
+  }
+}
+
+const grid = document.getElementById('grid');
+DATA.forEach((d,i)=>{
+  const card = document.createElement('div');
+  card.className = 'card c' + (i % 6);
+  card.innerHTML = `
+    <div class="letters">
+      <button class="letter-btn upper" aria-label="Huruf besar ${d.u}">${d.u}</button>
+      <button class="letter-btn lower" aria-label="Huruf kecil ${d.l}">${d.l}</button>
+    </div>
+    <div class="pron">(${d.p})</div>
+    <div class="deco-emoji" aria-hidden="true">${d.e}</div>
+  `;
+  const [upperBtn, lowerBtn] = card.querySelectorAll('.letter-btn');
+  upperBtn.addEventListener('click', ()=> speak(`${d.p}, huruf besar`));
+  lowerBtn.addEventListener('click', ()=> speak(`${d.p}, huruf kecil`));
+  grid.appendChild(card);
+});
+
+const tabs = document.querySelectorAll('.tab-btn');
+const panels = { lembaran: document.getElementById('panel-lembaran'), kuis: document.getElementById('panel-kuis') };
+tabs.forEach(btn=>{
+  btn.addEventListener('click', ()=>{
+    tabs.forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+    Object.values(panels).forEach(p=>p.classList.remove('active'));
+    panels[btn.dataset.tab].classList.add('active');
+    window.speechSynthesis.cancel();
+  });
+});
+
+let score = 0, total = 0, roundCount = 0;
+const MAX_ROUNDS = 10;
+let current = null;
+
+const scoreEl = document.getElementById('score');
+const promptBtn = document.getElementById('promptBtn');
+const quizOptions = document.getElementById('quizOptions');
+const feedbackEl = document.getElementById('feedback');
+const nextBtn = document.getElementById('nextBtn');
+const doneBox = document.getElementById('doneBox');
+const finalScoreEl = document.getElementById('finalScore');
+const restartBtn = document.getElementById('restartBtn');
+const quizBoxContent = document.querySelector('.quiz-box');
+
+function newRound(){
+  feedbackEl.textContent = '';
+  feedbackEl.className = 'feedback';
+  nextBtn.style.display = 'none';
+  quizOptions.innerHTML = '';
+  Array.from(document.querySelectorAll('.opt-card')).forEach(b=>b.disabled=false);
+
+  const letter = DATA[Math.floor(Math.random()*DATA.length)];
+  const isBesar = Math.random() < 0.5;
+  current = { letter, isBesar };
+
+  promptBtn.onclick = ()=> speak(isBesar ? `${letter.p}, huruf besar` : `${letter.p}, huruf kecil`);
+  speak(isBesar ? `${letter.p}, huruf besar` : `${letter.p}, huruf kecil`);
+
+  const correctChar = isBesar ? letter.u : letter.l;
+  const wrongChar = isBesar ? letter.l : letter.u;
+  const options = Math.random() < 0.5 ? [correctChar, wrongChar] : [wrongChar, correctChar];
+
+  options.forEach(ch=>{
+    const b = document.createElement('button');
+    b.className = 'opt-card';
+    b.textContent = ch;
+    b.addEventListener('click', ()=> handleAnswer(b, ch === correctChar));
+    quizOptions.appendChild(b);
+  });
+}
+
+function handleAnswer(btn, isCorrect){
+  Array.from(document.querySelectorAll('.opt-card')).forEach(b=>b.disabled=true);
+  total++;
+  roundCount++;
+  if(isCorrect){
+    score++;
+    btn.classList.add('correct');
+    feedbackEl.textContent = 'Betul! Bagus! 🎉';
+    feedbackEl.className = 'feedback good';
+    speak('Betul');
+  } else {
+    btn.classList.add('wrong');
+    feedbackEl.textContent = 'Cuba lagi! Dengar semula.';
+    feedbackEl.className = 'feedback bad';
+    speak('Cuba lagi');
+  }
+  scoreEl.textContent = `Skor: ${score} / ${total}`;
+
+  if(roundCount >= MAX_ROUNDS){
+    setTimeout(()=>{
+      quizBoxContent.querySelectorAll('.quiz-prompt-btn, .quiz-instr, .quiz-options, .feedback').forEach(el=>el.style.display='none');
+      doneBox.style.display='block';
+      finalScoreEl.textContent = `Skor akhir anda: ${score} daripada ${total}`;
+    }, 900);
+  } else {
+    nextBtn.style.display = 'inline-block';
+  }
+}
+
+nextBtn.addEventListener('click', newRound);
+restartBtn.addEventListener('click', ()=>{
+  score = 0; total = 0; roundCount = 0;
+  scoreEl.textContent = 'Skor: 0 / 0';
+  doneBox.style.display = 'none';
+  quizBoxContent.querySelectorAll('.quiz-prompt-btn, .quiz-instr, .quiz-options, .feedback').forEach(el=>el.style.display='');
+  newRound();
+});
+
+newRound();
+if('speechSynthesis' in window){
+  window.speechSynthesis.onvoiceschanged = ()=>{};
+}
+</script>
+</body>
+</html>
